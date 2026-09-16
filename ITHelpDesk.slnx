@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ITHelpDesk.Business/ITHelpDesk.Business.csproj" />
+  <Project Path="ITHelpDesk.DataAccess/ITHelpDesk.DataAccess.csproj" />
+  <Project Path="ITHelpDesk.Entities/ITHelpDesk.Entities.csproj" />
+  <Project Path="ITHelpDesk.Web/ITHelpDesk.Web.csproj" />
+</Solution>
