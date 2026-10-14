@@ -11,5 +11,17 @@ namespace ITHelpDesk.DataAccess
         }
 
         public DbSet<Ticket> Tickets { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // User silindiğinde ilişkili Comment kayıtları otomatik silinmesin.
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.User)
+                .WithMany()
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+        }
     }
 }
