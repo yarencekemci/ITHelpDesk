@@ -18,5 +18,11 @@ namespace ITHelpDesk.Web.Controllers
 
             return View(tickets);
         }
+        // yeni destek talebi oluşturma sayfasını açar.
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
