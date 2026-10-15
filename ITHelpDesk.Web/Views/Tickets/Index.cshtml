@@ -1,3 +1,26 @@
-﻿<h1>Destek Talepleri</h1>
+﻿
+@model List<ITHelpDesk.Entities.Ticket>
 
-<p>IT destek taleplerinizi buradan yönetebilirsiniz.</p>
+<h1>Destek Talepleri</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Talep No</th>
+            <th>Başlık</th>
+            <th>Açıklama</th>
+            <th>Oluşturulma Tarihi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ticket in Model)
+        {
+            <tr>
+                <td>@ticket.Id</td>
+                <td>@ticket.Title</td>
+                <td>@ticket.Description</td>
+                <td>@ticket.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+            </tr>
+        }
+    </tbody>
+</table>
