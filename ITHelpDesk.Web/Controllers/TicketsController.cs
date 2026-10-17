@@ -1,5 +1,6 @@
 ﻿using ITHelpDesk.DataAccess;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ITHelpDesk.Web.Controllers
 {
@@ -14,7 +15,11 @@ namespace ITHelpDesk.Web.Controllers
 
         public IActionResult Index()
         {
-            var tickets = _context.Tickets.ToList();
+            var tickets = _context.Tickets
+            .Include(t => t.Category)
+            .Include(t => t.Priority)
+            .Include(t => t.Status)
+            .ToList();
 
             return View(tickets);
         }
