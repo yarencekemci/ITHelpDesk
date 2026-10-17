@@ -19,9 +19,16 @@
         @foreach (var ticket in Model)
         {
             <tr>
-                <td>@ticket.Id</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@ticket.Id">
+                        @ticket.Id
+                    </a>
+                </td>
                 <td>@ticket.Title</td>
                 <td>@ticket.Description</td>
+                <td>@ticket.Category?.Name</td>
+                <td>@ticket.Priority?.Name</td>
+                <td>@ticket.Status?.Name</td>
                 <td>@ticket.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
             </tr>
         }
