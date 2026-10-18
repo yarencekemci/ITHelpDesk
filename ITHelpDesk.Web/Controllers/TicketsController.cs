@@ -41,6 +41,20 @@ namespace ITHelpDesk.Web.Controllers
             return View(ticket);
         }
 
+        // destek talebini düzenleme sayfasını açar.
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var ticket = _context.Tickets.Find(id);
+
+            if (ticket == null)
+            {
+                return NotFound();
+            }
+
+            return View(ticket);
+        }
+
         // yeni destek talebi oluşturma sayfasını açar.
         [HttpGet]
         public IActionResult Create()
