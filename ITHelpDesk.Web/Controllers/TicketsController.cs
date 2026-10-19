@@ -75,6 +75,24 @@ namespace ITHelpDesk.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // destek talebini siler.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            var ticket = _context.Tickets.Find(id);
+
+            if (ticket == null)
+            {
+                return NotFound();
+            }
+
+            _context.Tickets.Remove(ticket);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
         // yeni destek talebi oluşturma sayfasını açar.
         [HttpGet]
         public IActionResult Create()
