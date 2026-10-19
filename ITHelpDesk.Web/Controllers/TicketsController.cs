@@ -55,6 +55,26 @@ namespace ITHelpDesk.Web.Controllers
             return View(ticket);
         }
 
+        // düzenlenen destek talebini veritabanına kaydeder.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ITHelpDesk.Entities.Ticket ticket)
+        {
+            var existingTicket = _context.Tickets.Find(ticket.Id);
+
+            if (existingTicket == null)
+            {
+                return NotFound();
+            }
+
+            existingTicket.Title = ticket.Title;
+            existingTicket.Description = ticket.Description;
+
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
         // yeni destek talebi oluşturma sayfasını açar.
         [HttpGet]
         public IActionResult Create()
