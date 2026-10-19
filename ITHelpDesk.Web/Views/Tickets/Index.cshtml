@@ -13,6 +13,7 @@
             <th>Öncelik</th>
             <th>Durum</th>
             <th>Oluşturulma Tarihi</th>
+            <th>İşlemler</th>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +31,13 @@
                 <td>@ticket.Priority?.Name</td>
                 <td>@ticket.Status?.Name</td>
                 <td>@ticket.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@ticket.Id"
+                       class="btn btn-warning btn-sm">
+                        Düzenle
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
