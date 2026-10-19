@@ -38,6 +38,15 @@
                         Düzenle
                     </a>
                 </td>
+                <form asp-action="Delete"
+                      asp-route-id="@ticket.Id"
+                      method="post"
+                      onsubmit="return confirm('Bu destek talebini silmek istediğine emin misin?');">
+
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        Sil
+                    </button>
+                </form>
             </tr>
         }
     </tbody>
