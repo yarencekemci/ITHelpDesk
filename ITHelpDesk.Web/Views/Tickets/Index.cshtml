@@ -1,7 +1,13 @@
 ﻿
 @model List<ITHelpDesk.Entities.Ticket>
 
-<h1>Destek Talepleri</h1>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Destek Talepleri</h1>
+
+    <a asp-action="Create" class="btn btn-primary">
+        + Yeni Destek Talebi
+    </a>
+</div>
 
 <table class="table">
     <thead>
