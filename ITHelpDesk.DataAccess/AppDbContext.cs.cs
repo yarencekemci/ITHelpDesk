@@ -1,9 +1,12 @@
-﻿using ITHelpDesk.Entities;
+﻿
+using ITHelpDesk.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITHelpDesk.DataAccess
 {
-    public class AppDbContext : DbContext
+    // Identity kullanıcı ve rol tablolarını da yönetir
+    public class AppDbContext : IdentityDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
@@ -16,7 +19,7 @@ namespace ITHelpDesk.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            // User silindiğinde ilişkili Comment kayıtları otomatik silinmesin.
+            // user silindiğinde ilişkili Comment kayıtları otomatik silinmesin
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.User)
                 .WithMany()
