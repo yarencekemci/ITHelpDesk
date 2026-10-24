@@ -1,4 +1,5 @@
 ﻿using System.Xml.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace ITHelpDesk.Entities
 {
