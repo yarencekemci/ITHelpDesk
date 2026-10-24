@@ -1,12 +1,11 @@
 ﻿
 using ITHelpDesk.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITHelpDesk.DataAccess
 {
     // Identity kullanıcı ve rol tablolarını da yönetir
-    public class AppDbContext : IdentityDbContext
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)

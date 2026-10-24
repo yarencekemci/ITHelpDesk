@@ -23,37 +23,48 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var ticket in Model)
+        @if (Model == null || !Model.Any())
         {
             <tr>
-                <td>
-                    <a asp-action="Details" asp-route-id="@ticket.Id">
-                        @ticket.Id
-                    </a>
+                <td colspan="8" class="text-center">
+                    Henüz destek talebi bulunmuyor.
                 </td>
-                <td>@ticket.Title</td>
-                <td>@ticket.Description</td>
-                <td>@ticket.Category?.Name</td>
-                <td>@ticket.Priority?.Name</td>
-                <td>@ticket.Status?.Name</td>
-                <td>@ticket.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
-                <td>
-                    <a asp-action="Edit"
-                       asp-route-id="@ticket.Id"
-                       class="btn btn-warning btn-sm">
-                        Düzenle
-                    </a>
-                </td>
-                <form asp-action="Delete"
-                      asp-route-id="@ticket.Id"
-                      method="post"
-                      onsubmit="return confirm('Bu destek talebini silmek istediğine emin misin?');">
-
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        Sil
-                    </button>
-                </form>
             </tr>
+        }
+        else
+        {
+            @foreach (var ticket in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@ticket.Id">
+                            @ticket.Id
+                        </a>
+                    </td>
+                    <td>@ticket.Title</td>
+                    <td>@ticket.Description</td>
+                    <td>@ticket.Category?.Name</td>
+                    <td>@ticket.Priority?.Name</td>
+                    <td>@ticket.Status?.Name</td>
+                    <td>@ticket.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>
+                        <a asp-action="Edit"
+                           asp-route-id="@ticket.Id"
+                           class="btn btn-warning btn-sm">
+                            Düzenle
+                        </a>
+
+                        <form asp-action="Delete"
+                              asp-route-id="@ticket.Id"
+                              method="post"
+                              onsubmit="return confirm('Bu destek talebini silmek istediğine emin misin?');">
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                Sil
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
