@@ -100,12 +100,17 @@ namespace ITHelpDesk.Web.Controllers
             return View();
         }
 
-        // Formdan gelen destek talebini veritabanına kaydeder.
+        // formdan gelen destek talebini veritabanına kaydeder.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(ITHelpDesk.Entities.Ticket ticket)
         {
-            // Kullanıcıdan alınmayan alanlara başlangıç değerleri veriyoruz.
+            // Model doğrulamasından geçmeyen verileri kaydetme.
+            if (!ModelState.IsValid)
+            {
+                return View(ticket);
+            }
+
             ticket.UserId = 1;
             ticket.CategoryId = 1;
             ticket.PriorityId = 1;
