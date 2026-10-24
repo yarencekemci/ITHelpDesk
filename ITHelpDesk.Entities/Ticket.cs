@@ -7,8 +7,15 @@ namespace ITHelpDesk.Entities
     {
         public int Id { get; set; }
 
+        //model doğrulamasının temeli
+        //geçersiz verileri reddetmesini sağlayacağız.
+
+        [Required(ErrorMessage = "Başlık alanı zorunludur.")]
+        [StringLength(100, ErrorMessage = "Başlık en fazla 100 karakter olabilir.")]
         public string Title { get; set; }
 
+        [Required(ErrorMessage = "Açıklama alanı zorunludur.")]
+        [StringLength(2000, ErrorMessage = "Açıklama en fazla 2000 karakter olabilir.")]
         public string Description { get; set; }
 
         public int UserId { get; set; }
