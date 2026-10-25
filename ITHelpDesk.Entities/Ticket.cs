@@ -32,16 +32,13 @@ namespace ITHelpDesk.Entities
 
         public DateTime? ClosedDate { get; set; }
 
-        public User User { get; set; }
+        public User? User { get; set; }
 
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
+        public Priority? Priority { get; set; }
+        public Status? Status { get; set; }
 
-        public Priority Priority { get; set; }
-
-        public Status Status { get; set; }
-
-        public User AssignedTo { get; set; }
-
-        public List<Comment> Comments { get; set; }
+        public User? AssignedTo { get; set; }
+        public List<Comment> Comments { get; set; } = new();
     }
 }

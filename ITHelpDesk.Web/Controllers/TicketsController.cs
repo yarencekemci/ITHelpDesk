@@ -1,4 +1,5 @@
-﻿using ITHelpDesk.DataAccess;
+﻿
+using ITHelpDesk.DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,18 +14,19 @@ namespace ITHelpDesk.Web.Controllers
             _context = context;
         }
 
+        // Destek taleplerini listeler.
         public IActionResult Index()
         {
             var tickets = _context.Tickets
-            .Include(t => t.Category)
-            .Include(t => t.Priority)
-            .Include(t => t.Status)
-            .ToList();
+                .Include(t => t.Category)
+                .Include(t => t.Priority)
+                .Include(t => t.Status)
+                .ToList();
 
             return View(tickets);
         }
 
-        // destek talebinin detaylarını gösterir.
+        // Destek talebinin detaylarını gösterir.
         public IActionResult Details(int id)
         {
             var ticket = _context.Tickets
@@ -41,7 +43,7 @@ namespace ITHelpDesk.Web.Controllers
             return View(ticket);
         }
 
-        // destek talebini düzenleme sayfasını açar.
+        // Düzenleme sayfasını açar.
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -55,7 +57,7 @@ namespace ITHelpDesk.Web.Controllers
             return View(ticket);
         }
 
-        // düzenlenen destek talebini veritabanına kaydeder.
+        // Düzenlenen destek talebini kaydeder.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(ITHelpDesk.Entities.Ticket ticket)
@@ -67,6 +69,19 @@ namespace ITHelpDesk.Web.Controllers
                 return NotFound();
             }
 
+            // Başlık ve açıklama doğrulaması.
+            if (string.IsNullOrWhiteSpace(ticket.Title) ||
+                ticket.Title.Length > 100 ||
+                string.IsNullOrWhiteSpace(ticket.Description) ||
+                ticket.Description.Length > 2000)
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    "Başlık 1-100, açıklama ise 1-2000 karakter arasında olmalıdır.");
+
+                return View(ticket);
+            }
+
             existingTicket.Title = ticket.Title;
             existingTicket.Description = ticket.Description;
 
@@ -75,7 +90,7 @@ namespace ITHelpDesk.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // destek talebini siler.
+        // Destek talebini siler.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
@@ -93,19 +108,42 @@ namespace ITHelpDesk.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // yeni destek talebi oluşturma sayfasını açar.
+        // Yeni destek talebi oluşturma sayfasını açar.
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // formdan gelen destek talebini veritabanına kaydeder.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(ITHelpDesk.Entities.Ticket ticket)
         {
-            // Model doğrulamasından geçmeyen verileri kaydetme.
+            // Başlık ve açıklama uzunluklarını kontrol et.
+            if (string.IsNullOrWhiteSpace(ticket.Title))
+            {
+                ModelState.AddModelError(nameof(ticket.Title),
+                    "Başlık alanı zorunludur.");
+            }
+            else if (ticket.Title.Length > 100)
+            {
+                ModelState.AddModelError(nameof(ticket.Title),
+                    "Başlık en fazla 100 karakter olabilir.");
+            }
+
+            if (string.IsNullOrWhiteSpace(ticket.Description))
+            {
+                ModelState.AddModelError(nameof(ticket.Description),
+                    "Açıklama alanı zorunludur.");
+            }
+            else if (ticket.Description.Length > 2000)
+            {
+                ModelState.AddModelError(nameof(ticket.Description),
+                    "Açıklama en fazla 2000 karakter olabilir.");
+            }
+
+            // Doğrulama başarısızsa kaydetmeden forma dön.
             if (!ModelState.IsValid)
             {
                 return View(ticket);
@@ -122,5 +160,6 @@ namespace ITHelpDesk.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
     }
 }
