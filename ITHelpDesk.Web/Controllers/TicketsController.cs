@@ -120,30 +120,7 @@ namespace ITHelpDesk.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(ITHelpDesk.Entities.Ticket ticket)
         {
-            // Başlık ve açıklama uzunluklarını kontrol et.
-            if (string.IsNullOrWhiteSpace(ticket.Title))
-            {
-                ModelState.AddModelError(nameof(ticket.Title),
-                    "Başlık alanı zorunludur.");
-            }
-            else if (ticket.Title.Length > 100)
-            {
-                ModelState.AddModelError(nameof(ticket.Title),
-                    "Başlık en fazla 100 karakter olabilir.");
-            }
-
-            if (string.IsNullOrWhiteSpace(ticket.Description))
-            {
-                ModelState.AddModelError(nameof(ticket.Description),
-                    "Açıklama alanı zorunludur.");
-            }
-            else if (ticket.Description.Length > 2000)
-            {
-                ModelState.AddModelError(nameof(ticket.Description),
-                    "Açıklama en fazla 2000 karakter olabilir.");
-            }
-
-            // Doğrulama başarısızsa kaydetmeden forma dön.
+            // Title/Description doğrulaması Ticket.cs içindeki attribute'larla yapılır.
             if (!ModelState.IsValid)
             {
                 return View(ticket);

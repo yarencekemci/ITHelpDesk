@@ -3,7 +3,7 @@
 <h1>Yeni Destek Talebi</h1>
 
 <form asp-action="Create" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="mb-3">
         <label asp-for="Title" class="form-label">Başlık</label>
@@ -20,3 +20,7 @@
     <button type="submit" class="btn btn-primary">Talep Oluştur</button>
     <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
