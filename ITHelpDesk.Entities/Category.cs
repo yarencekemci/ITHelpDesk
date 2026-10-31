@@ -1,6 +1,4 @@
-﻿using System.Net.Sockets;
-
-namespace ITHelpDesk.Entities
+﻿namespace ITHelpDesk.Entities
 {
     public class Category
     {
@@ -10,6 +8,6 @@ namespace ITHelpDesk.Entities
 
         public string Description { get; set; }
 
-        public List<Ticket> Tickets { get; set; }
+        public List<Ticket> Tickets { get; set; } = new();
     }
 }

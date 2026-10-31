@@ -1,6 +1,4 @@
-﻿using System.Net.Sockets;
-
-namespace ITHelpDesk.Entities
+﻿namespace ITHelpDesk.Entities
 {
     public class Priority
     {
@@ -8,6 +6,6 @@ namespace ITHelpDesk.Entities
 
         public string Name { get; set; }
 
-        public List<Ticket> Tickets { get; set; }
+        public List<Ticket> Tickets { get; set; } = new();
     }
 }

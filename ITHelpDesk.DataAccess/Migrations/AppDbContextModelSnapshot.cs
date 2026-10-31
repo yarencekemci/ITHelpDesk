@@ -17,7 +17,7 @@ namespace ITHelpDesk.DataAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.12")
+                .HasAnnotation("ProductVersion", "10.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -40,7 +40,7 @@ namespace ITHelpDesk.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("ITHelpDesk.Entities.Comment", b =>
@@ -87,7 +87,7 @@ namespace ITHelpDesk.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Priority");
+                    b.ToTable("Priorities");
                 });
 
             modelBuilder.Entity("ITHelpDesk.Entities.Role", b =>
@@ -146,7 +146,8 @@ namespace ITHelpDesk.DataAccess.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<int>("PriorityId")
                         .HasColumnType("int");
@@ -156,7 +157,8 @@ namespace ITHelpDesk.DataAccess.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
