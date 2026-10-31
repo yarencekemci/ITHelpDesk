@@ -13,6 +13,8 @@ namespace ITHelpDesk.DataAccess
         }
 
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Category> Categories { get; set; } //Entity Framework Core will be able to query categories and priorities from the database
+        public DbSet<Priority> Priorities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
