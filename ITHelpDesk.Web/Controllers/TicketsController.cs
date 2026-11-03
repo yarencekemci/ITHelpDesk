@@ -126,15 +126,26 @@ namespace ITHelpDesk.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(ITHelpDesk.Entities.Ticket ticket)
         {
-            // Title/Description doğrulaması Ticket.cs içindeki attribute'larla yapılır.
+            // Formdan gelen kategori ve öncelik seçimlerini doğrula.
+            if (!_context.Categories.Any(c => c.Id == ticket.CategoryId))
+            {
+                ModelState.AddModelError(nameof(ticket.CategoryId), "Geçerli bir kategori seçiniz.");
+            }
+
+            if (!_context.Priorities.Any(p => p.Id == ticket.PriorityId))
+            {
+                ModelState.AddModelError(nameof(ticket.PriorityId), "Geçerli bir öncelik seçiniz.");
+            }
+
             if (!ModelState.IsValid)
             {
+                ViewBag.Categories = _context.Categories.ToList();
+                ViewBag.Priorities = _context.Priorities.ToList();
+
                 return View(ticket);
             }
 
             ticket.UserId = 1;
-            ticket.CategoryId = 1;
-            ticket.PriorityId = 1;
             ticket.StatusId = 1;
             ticket.CreatedDate = DateTime.Now;
 
