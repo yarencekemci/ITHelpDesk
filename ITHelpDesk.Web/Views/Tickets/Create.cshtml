@@ -17,6 +17,22 @@
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label">Kategori</label>
+        <select asp-for="CategoryId" class="form-select"
+                asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))">
+            <option value="">Kategori seçiniz</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PriorityId" class="form-label">Öncelik</label>
+        <select asp-for="PriorityId" class="form-select"
+                asp-items="@(new SelectList(ViewBag.Priorities, "Id", "Name"))">
+            <option value="">Öncelik seçiniz</option>
+        </select>
+    </div>
+
     <button type="submit" class="btn btn-primary">Talep Oluştur</button>
     <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
 </form>
