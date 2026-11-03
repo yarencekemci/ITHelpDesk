@@ -108,10 +108,16 @@ namespace ITHelpDesk.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Yeni destek talebi oluşturma sayfasını açar.
+        // yeni destek talebi oluşturma sayfasını açar
         [HttpGet]
         public IActionResult Create()
         {
+            // ktegorileri veritabanından getir.
+            ViewBag.Categories = _context.Categories.ToList();
+
+            // öncelikleri veritabanından getir.
+            ViewBag.Priorities = _context.Priorities.ToList();
+
             return View();
         }
 
