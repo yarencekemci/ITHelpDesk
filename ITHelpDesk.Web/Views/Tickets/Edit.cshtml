@@ -1,9 +1,10 @@
-﻿@model ITHelpDesk.Entities.Ticket
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model ITHelpDesk.Entities.Ticket
 
 <h1>Destek Talebini Düzenle</h1>
 
 <form asp-action="Edit" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div asp-validation-summary="All" class="text-danger"></div>
 
     <input type="hidden" asp-for="Id" />
 
@@ -17,6 +18,24 @@
         <label asp-for="Description" class="form-label">Açıklama</label>
         <textarea asp-for="Description" class="form-control"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label">Kategori</label>
+        <select asp-for="CategoryId"
+                class="form-select"
+                asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))">
+            <option value="">Kategori seçiniz</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PriorityId" class="form-label">Öncelik</label>
+        <select asp-for="PriorityId"
+                class="form-select"
+                asp-items="@(new SelectList(ViewBag.Priorities, "Id", "Name"))">
+            <option value="">Öncelik seçiniz</option>
+        </select>
     </div>
 
     <button type="submit" class="btn btn-primary">Değişiklikleri Kaydet</button>
