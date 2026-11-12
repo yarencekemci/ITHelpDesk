@@ -14,7 +14,7 @@ namespace ITHelpDesk.Web.Controllers
             _context = context;
         }
 
-        // Destek taleplerini listeler.
+        // destek taleplerini listeler
         public IActionResult Index()
         {
             var tickets = _context.Tickets
@@ -26,7 +26,7 @@ namespace ITHelpDesk.Web.Controllers
             return View(tickets);
         }
 
-        // Destek talebinin detaylarını gösterir.
+        // destek talebinin detaylarını gösterir
         public IActionResult Details(int id)
         {
             var ticket = _context.Tickets
@@ -43,7 +43,7 @@ namespace ITHelpDesk.Web.Controllers
             return View(ticket);
         }
 
-        // Düzenleme sayfasını açar.
+        // düzenleme sayfasını açar
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -54,10 +54,14 @@ namespace ITHelpDesk.Web.Controllers
                 return NotFound();
             }
 
+            // Kategori ve öncelik seçeneklerini yükle
+            ViewBag.Categories = _context.Categories.ToList();
+            ViewBag.Priorities = _context.Priorities.ToList();
+
             return View(ticket);
         }
 
-        // Düzenlenen destek talebini kaydeder.
+        // düzenlenen destek talebini kaydeder
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(ITHelpDesk.Entities.Ticket ticket)
@@ -90,7 +94,7 @@ namespace ITHelpDesk.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Destek talebini siler.
+        // destek talebini siler
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
@@ -126,7 +130,7 @@ namespace ITHelpDesk.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(ITHelpDesk.Entities.Ticket ticket)
         {
-            // Formdan gelen kategori ve öncelik seçimlerini doğrula.
+            // formdan gelen kategori ve öncelik seçimlerini doğrula
             if (!_context.Categories.Any(c => c.Id == ticket.CategoryId))
             {
                 ModelState.AddModelError(nameof(ticket.CategoryId), "Geçerli bir kategori seçiniz.");
