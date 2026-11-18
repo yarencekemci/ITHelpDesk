@@ -19,6 +19,32 @@
             @Model.CreatedDate.ToString("dd.MM.yyyy HH:mm")
         </p>
 
+        <hr />
+
+        <h4>Yorumlar</h4>
+
+        @if (Model.Comments != null && Model.Comments.Any())
+        {
+            @foreach (var comment in Model.Comments.OrderBy(c => c.CreatedDate))
+            {
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <strong>@comment.User?.FullName</strong>
+                        <small class="text-muted">
+                            @comment.CreatedDate.ToString("dd.MM.yyyy HH:mm")
+                        </small>
+                        <p class="mb-0">@comment.CommentText</p>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Henüz yorum yapılmamış.</p>
+        }
+
+        <hr />
+
         <a asp-action="Index" class="btn btn-secondary">
             Listeye Dön
         </a>

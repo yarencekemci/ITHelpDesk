@@ -35,6 +35,8 @@ namespace ITHelpDesk.Web.Controllers
                 .Include(t => t.Priority)
                 .Include(t => t.Status)
                 .Include(t => t.User)
+                .Include(t => t.Comments)
+                    .ThenInclude(c => c.User)
                 .FirstOrDefault(t => t.Id == id);
 
             if (ticket == null)
