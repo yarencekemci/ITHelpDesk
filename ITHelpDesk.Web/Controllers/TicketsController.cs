@@ -26,6 +26,7 @@ namespace ITHelpDesk.Web.Controllers
             return View(tickets);
         }
 
+        [HttpGet]
         // destek talebinin detaylarını gösterir
         public IActionResult Details(int id)
         {
