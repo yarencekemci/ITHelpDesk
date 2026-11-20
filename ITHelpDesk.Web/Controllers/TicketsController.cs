@@ -25,6 +25,11 @@ namespace ITHelpDesk.Web.Controllers
                 .Include(t => t.AssignedTo)
                 .ToList();
 
+            ViewBag.OpenCount = tickets.Count(t => t.Status?.Name == "Open");
+            ViewBag.PendingCount = tickets.Count(t => t.Status?.Name == "Pending");
+            ViewBag.ResolvedCount = tickets.Count(t => t.Status?.Name == "Resolved");
+            ViewBag.UnresolvedCount = tickets.Count(t => t.Status?.Name == "Unresolved");
+
             return View(tickets);
         }
 
