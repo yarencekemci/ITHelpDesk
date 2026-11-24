@@ -98,6 +98,8 @@
                                 </td>
 
                                 <td>@ticket.Title</td>
+                                <td>@ticket.User?.FullName</td>
+                                <td>@ticket.AssignedTo?.FullName</td>
                                 <td>@ticket.Description</td>
                                 <td>@ticket.Category?.Name</td>
                                 <td>@ticket.Priority?.Name</td>
